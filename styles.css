@@ -434,7 +434,7 @@
     transform:translateY(100%); transition:transform .3s ease;
   }
   .sticky-cta.show{ transform:translateY(0); }
-  @media (max-width:640px){
+  @media (max-width:640px) and (pointer:coarse){
     .sticky-cta{ display:flex; }
     .sticky-cta .btn{ flex:1; justify-content:center; }
     #backToTop{ bottom:76px; }
