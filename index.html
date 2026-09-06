@@ -50,6 +50,11 @@
 
   :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
 
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
   .icon{
     width:1em; height:1em; flex:none;
     fill:none; stroke:currentColor; stroke-width:1.8;
@@ -125,7 +130,7 @@
   }
 
   /* ---------------- hero ---------------- */
-  #inicio{ padding:92px 0 100px; }
+  #inicio{ padding:92px 0 100px; position:relative; overflow:hidden; }
   .hero-grid{
     display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;
   }
@@ -378,9 +383,59 @@
     .heading-center{ margin-bottom:32px; }
   }
 
+  /* ---------------- scroll progress bar ---------------- */
+  #scrollProgress{
+    position:fixed; top:0; left:0; height:3px; width:0%;
+    background:linear-gradient(90deg, var(--accent), var(--accent-2));
+    z-index:70; transition:width .12s ease-out;
+  }
+
+  /* ---------------- hero background pattern ---------------- */
+  #inicio::before{
+    content:''; position:absolute; inset:-15% -10%;
+    background-image:radial-gradient(circle, rgba(226,161,61,0.14) 1px, transparent 1.6px);
+    background-size:26px 26px;
+    animation:driftGrid 50s linear infinite;
+    pointer-events:none; z-index:0;
+  }
+  #inicio .wrap{ position:relative; z-index:1; }
+  @keyframes driftGrid{ from{ background-position:0 0; } to{ background-position:260px 260px; } }
+
+  /* ---------------- terminal-style typing cursor ---------------- */
+  .typing-cursor{
+    display:inline-block; width:2px; height:1em; margin-left:2px;
+    background:var(--accent); vertical-align:-0.15em;
+    animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  /* ---------------- scroll reveal ---------------- */
+  .reveal-init{ opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal-init.is-visible{ opacity:1; transform:none; }
+
+  /* ---------------- back to top button ---------------- */
+  #backToTop{
+    position:fixed; right:24px; bottom:24px; z-index:65;
+    width:46px; height:46px; border-radius:50%; border:none;
+    background:var(--accent); color:var(--accent-ink);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    opacity:0; transform:translateY(12px); pointer-events:none;
+    box-shadow:0 10px 24px rgba(0,0,0,0.35);
+    transition:opacity .25s ease, transform .25s ease, background .2s ease;
+  }
+  #backToTop.show{ opacity:1; transform:none; pointer-events:auto; }
+  #backToTop:hover{ background:var(--accent-2); }
+  #backToTop svg{ width:20px; height:20px; }
+
+  @media (max-width:480px){
+    #backToTop{ right:16px; bottom:16px; width:42px; height:42px; }
+  }
+
 </style>
 </head>
 <body>
+
+<div id="scrollProgress" aria-hidden="true"></div>
 
 <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
 <defs>
@@ -397,6 +452,7 @@
 <symbol id="i-tool" viewBox="0 0 24 24"><path d="M18 3a4 4 0 0 0-4.9 4.9L4 17l3 3 9.1-9.1A4 4 0 0 0 21 6l-3 3-2-2 3-3z"/></symbol>
 <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="1.5"/><rect x="9" y="2.3" width="6" height="3.2" rx="1"/><line x1="8.5" y1="10" x2="15.5" y2="10"/><line x1="8.5" y1="13.5" x2="15.5" y2="13.5"/><line x1="8.5" y1="17" x2="13" y2="17"/></symbol>
 <symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="1.5"/><line x1="5" y1="9.5" x2="7" y2="9.5"/><line x1="9" y1="9.5" x2="11" y2="9.5"/><line x1="13" y1="9.5" x2="15" y2="9.5"/><line x1="17" y1="9.5" x2="19" y2="9.5"/><line x1="5" y1="13" x2="7" y2="13"/><line x1="9" y1="13" x2="11" y2="13"/><line x1="13" y1="13" x2="15" y2="13"/><line x1="17" y1="13" x2="19" y2="13"/><line x1="7" y1="16" x2="17" y2="16"/></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5,12 12,5 19,12"/></symbol>
 </defs>
 </svg>
 
@@ -431,7 +487,7 @@
       <div>
         <p class="hero-greet">Hola, soy</p>
         <h1 class="hero-name">Miguel <span class="accent">De La Torre</span></h1>
-        <p class="hero-role">Auxiliar Administrativo &amp; Técnico en Sistemas Microinformáticos</p>
+        <p class="hero-role"><span id="heroRoleText" aria-hidden="true"></span><span class="typing-cursor" aria-hidden="true"></span><span class="sr-only">Auxiliar Administrativo &amp; Técnico en Sistemas Microinformáticos</span></p>
         <div class="hero-actions">
           <a href="#contacto" class="btn btn-accent">Contáctame</a>
           <div class="hero-social">
@@ -618,8 +674,8 @@
     <div class="wrap">
       <div class="cifras-band">
         <div class="cifras-row">
-          <div class="cifra"><div class="num">3.355h</div><div class="lbl">de formación acumulada</div></div>
-          <div class="cifra"><div class="num">6</div><div class="lbl">certificados de profesionalidad</div></div>
+          <div class="cifra"><div class="num" data-count="3355" data-suffix="h">3.355h</div><div class="lbl">de formación acumulada</div></div>
+          <div class="cifra"><div class="num" data-count="6" data-suffix="">6</div><div class="lbl">certificados de profesionalidad</div></div>
           <div class="cifra"><div class="num">Inmediata</div><div class="lbl">disponibilidad para trabajar</div></div>
         </div>
         <div class="cifras-tags">
@@ -640,7 +696,7 @@
 
       <div class="contact-grid">
         <a class="contact-item" href="mailto:miguelangeldelatorre14@gmail.com"><svg class="icon"><use href="#i-mail"></use></svg>miguelangeldelatorre14@gmail.com</a>
-        <a class="contact-item" href="tel:+34722700897"><svg class="icon"><use href="#i-phone"></use></svg>+34 722 70 08 97</a>
+        <a class="contact-item" href="tel:+34722700897"><svg class="icon"><use href="#i-phone"></use></svg>722 70 08 97</a>
         <div class="contact-item"><svg class="icon"><use href="#i-pin"></use></svg>Las Palmas de Gran Canaria, España</div>
       </div>
 
@@ -657,6 +713,10 @@
 </main>
 
 <footer>Miguel De La Torre — Auxiliar Administrativo · Las Palmas de Gran Canaria</footer>
+
+<button id="backToTop" aria-label="Volver arriba" title="Volver arriba">
+  <svg class="icon"><use href="#i-arrow-up"></use></svg>
+</button>
 
 <script>
   // nav mobile toggle
@@ -683,6 +743,94 @@
   }
   window.addEventListener('scroll', setActive, {passive:true});
   setActive();
+  // respeta la preferencia de "reducir movimiento" del sistema
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // barra de progreso de scroll
+  const scrollProgress = document.getElementById('scrollProgress');
+  function updateScrollProgress(){
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    scrollProgress.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateScrollProgress, {passive:true});
+  updateScrollProgress();
+
+  // botón "volver arriba"
+  const backToTop = document.getElementById('backToTop');
+  function toggleBackToTop(){
+    backToTop.classList.toggle('show', window.scrollY > window.innerHeight * 0.6);
+  }
+  window.addEventListener('scroll', toggleBackToTop, {passive:true});
+  backToTop.addEventListener('click', () => window.scrollTo({top:0, behavior: prefersReducedMotion ? 'auto' : 'smooth'}));
+  toggleBackToTop();
+
+  // efecto de escritura tipo terminal en el rol del hero
+  const heroRoleText = document.getElementById('heroRoleText');
+  const fullRoleText = 'Auxiliar Administrativo & Técnico en Sistemas Microinformáticos';
+  if (heroRoleText) {
+    if (prefersReducedMotion) {
+      heroRoleText.textContent = fullRoleText;
+    } else {
+      let i = 0;
+      (function typeChar(){
+        heroRoleText.textContent = fullRoleText.slice(0, i);
+        i++;
+        if (i <= fullRoleText.length) setTimeout(typeChar, 28);
+      })();
+    }
+  }
+
+  // contadores animados en "En cifras"
+  const counters = document.querySelectorAll('.cifra .num[data-count]');
+  function animateCount(el, target, suffix, duration){
+    const start = performance.now();
+    function step(now){
+      const progress = Math.min((now - start) / duration, 1);
+      const value = Math.floor(progress * target);
+      el.textContent = value.toLocaleString('es-ES') + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = target.toLocaleString('es-ES') + suffix;
+    }
+    requestAnimationFrame(step);
+  }
+  if (counters.length) {
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      counters.forEach(el => { el.textContent = parseInt(el.dataset.count, 10).toLocaleString('es-ES') + (el.dataset.suffix || ''); });
+    } else {
+      const counterIO = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            animateCount(el, parseInt(el.dataset.count, 10), el.dataset.suffix || '', 1400);
+            counterIO.unobserve(el);
+          }
+        });
+      }, {threshold:0.4});
+      counters.forEach(el => counterIO.observe(el));
+    }
+  }
+
+  // animación de aparición al hacer scroll
+  if ('IntersectionObserver' in window) {
+    const revealTargets = document.querySelectorAll(
+      '.heading-center, .heading-left, .skill-card, .formacion-card, .t-item, .about-stat, .cifras-band, .contact-item, .social-row, .thanks-line'
+    );
+    revealTargets.forEach((el, i) => {
+      el.classList.add('reveal-init');
+      el.style.transitionDelay = (i % 4) * 70 + 'ms';
+    });
+    const revealIO = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealIO.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.15});
+    revealTargets.forEach(el => revealIO.observe(el));
+  }
 </script>
 
 </body>
