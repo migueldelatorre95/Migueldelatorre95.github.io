@@ -47,7 +47,7 @@
 
   // efecto de escritura tipo terminal en el rol del hero
   const heroRoleText = document.getElementById('heroRoleText');
-  const fullRoleText = 'Auxiliar Administrativo & Técnico en Sistemas Microinformáticos';
+  const fullRoleText = 'Auxiliar Administrativo y Técnico en Sistemas Microinformáticos';
   if (heroRoleText) {
     if (prefersReducedMotion) {
       heroRoleText.textContent = fullRoleText;

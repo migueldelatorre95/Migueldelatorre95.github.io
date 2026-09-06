@@ -145,6 +145,9 @@
   }
   .btn-accent{ color:var(--accent); background:transparent; }
   .btn-accent:hover{ background:var(--accent); color:var(--accent-ink); transform:translateY(-2px); }
+  .btn-solid{ color:var(--accent-ink); background:var(--accent); }
+  .btn-solid:hover{ background:var(--accent-2); border-color:var(--accent-2); transform:translateY(-2px); }
+  .btn-solid .icon{ width:15px; height:15px; }
 
   .hero-social{ display:flex; gap:10px; }
   .hero-social a, .social-row a{
