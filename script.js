@@ -45,6 +45,19 @@
   backToTop.addEventListener('click', () => window.scrollTo({top:0, behavior: prefersReducedMotion ? 'auto' : 'smooth'}));
   toggleBackToTop();
 
+  // barra de contacto fija en móvil (aparece al hacer scroll, se oculta en el propio Contacto)
+  const stickyCta = document.getElementById('stickyCta');
+  const contactoSection = document.getElementById('contacto');
+  function toggleStickyCta(){
+    const pastHero = window.scrollY > window.innerHeight * 0.6;
+    const enContacto = contactoSection && contactoSection.getBoundingClientRect().top < window.innerHeight * 0.5;
+    stickyCta.classList.toggle('show', pastHero && !enContacto);
+  }
+  if (stickyCta) {
+    window.addEventListener('scroll', toggleStickyCta, {passive:true});
+    toggleStickyCta();
+  }
+
   // efecto de escritura tipo terminal en el rol del hero
   const heroRoleText = document.getElementById('heroRoleText');
   const fullRoleText = 'Auxiliar Administrativo y Técnico en Sistemas Microinformáticos';
