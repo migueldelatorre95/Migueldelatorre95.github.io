@@ -13,18 +13,26 @@
       document.documentElement.setAttribute('data-theme', temaActivo);
     }catch(e){}
   })();
+  // aplica el idioma guardado (o el del navegador) antes de pintar
+  (function(){
+    try{
+      var idiomaGuardado = localStorage.getItem('lang-preference');
+      var idiomaNavegador = (navigator.language || navigator.userLanguage || 'es').toLowerCase().indexOf('es') === 0 ? 'es' : 'en';
+      document.documentElement.setAttribute('lang', idiomaGuardado || idiomaNavegador);
+    }catch(e){}
+  })();
 </script>
-<title>Miguel De La Torre — Auxiliar Administrativo · Sistemas Microinformáticos</title>
-<meta name="description" content="Miguel De La Torre — Auxiliar Administrativo y Técnico en Sistemas Microinformáticos en Las Palmas de Gran Canaria. Formación práctica en gestión administrativa, redes y mantenimiento de equipos, con disponibilidad inmediata.">
+<title data-i18n="meta.title">Miguel De La Torre — Auxiliar Administrativo · Sistemas Microinformáticos</title>
+<meta name="description" content="Miguel De La Torre — Auxiliar Administrativo y Técnico en Sistemas Microinformáticos en Las Palmas de Gran Canaria. Formación práctica en gestión administrativa, redes y mantenimiento de equipos, con disponibilidad inmediata." data-i18n-attrs='{"content":"meta.description"}'>
 <meta name="theme-color" content="#21242b">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Miguel De La Torre — Auxiliar Administrativo · Técnico en Sistemas Microinformáticos">
-<meta property="og:description" content="Formación práctica en gestión administrativa, redes y mantenimiento de equipos, con disponibilidad inmediata. Las Palmas de Gran Canaria.">
+<meta property="og:title" content="Miguel De La Torre — Auxiliar Administrativo · Técnico en Sistemas Microinformáticos" data-i18n-attrs='{"content":"meta.title"}'>
+<meta property="og:description" content="Formación práctica en gestión administrativa, redes y mantenimiento de equipos, con disponibilidad inmediata. Las Palmas de Gran Canaria." data-i18n-attrs='{"content":"meta.description"}'>
 <meta property="og:image" content="https://migueldelatorre95.github.io/assets/foto-miguel.png">
 <meta property="og:url" content="https://migueldelatorre95.github.io/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Miguel De La Torre — Auxiliar Administrativo · Técnico en Sistemas Microinformáticos">
-<meta name="twitter:description" content="Formación práctica en gestión administrativa, redes y mantenimiento de equipos, con disponibilidad inmediata. Las Palmas de Gran Canaria.">
+<meta name="twitter:title" content="Miguel De La Torre — Auxiliar Administrativo · Técnico en Sistemas Microinformáticos" data-i18n-attrs='{"content":"meta.title"}'>
+<meta name="twitter:description" content="Formación práctica en gestión administrativa, redes y mantenimiento de equipos, con disponibilidad inmediata. Las Palmas de Gran Canaria." data-i18n-attrs='{"content":"meta.description"}'>
 <meta name="twitter:image" content="https://migueldelatorre95.github.io/assets/foto-miguel.png">
 <link rel="icon" href="assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -71,26 +79,34 @@
     <div class="nav-right">
       <nav class="main-nav" id="mainNav">
         <ul>
-          <li><a href="#inicio" class="nav-link" data-target="inicio">Inicio</a></li>
-          <li><a href="#sobre-mi" class="nav-link" data-target="sobre-mi">Sobre mí</a></li>
-          <li><a href="#habilidades" class="nav-link" data-target="habilidades">Habilidades</a></li>
-          <li><a href="#formacion" class="nav-link" data-target="formacion">Formación</a></li>
-          <li><a href="#experiencia" class="nav-link" data-target="experiencia">Experiencia</a></li>
-          <li><a href="#contacto" class="nav-link" data-target="contacto">Contacto</a></li>
+          <li><a href="#inicio" class="nav-link" data-target="inicio" data-i18n="nav.inicio">Inicio</a></li>
+          <li><a href="#sobre-mi" class="nav-link" data-target="sobre-mi" data-i18n="nav.sobreMi">Sobre mí</a></li>
+          <li><a href="#habilidades" class="nav-link" data-target="habilidades" data-i18n="nav.habilidades">Habilidades</a></li>
+          <li><a href="#formacion" class="nav-link" data-target="formacion" data-i18n="nav.formacion">Formación</a></li>
+          <li><a href="#experiencia" class="nav-link" data-target="experiencia" data-i18n="nav.experiencia">Experiencia</a></li>
+          <li><a href="#contacto" class="nav-link" data-target="contacto" data-i18n="nav.contacto">Contacto</a></li>
         </ul>
+        <div class="lang-toggle lang-toggle-mobile" role="group" aria-label="Seleccionar idioma" data-i18n-attrs='{"aria-label":"lang.groupLabel"}'>
+          <button type="button" class="lang-btn" data-lang-choice="es" aria-label="Español" title="Español">ES</button>
+          <button type="button" class="lang-btn" data-lang-choice="en" aria-label="English" title="English">EN</button>
+        </div>
       </nav>
-      <div class="theme-toggle" id="themeToggle" role="group" aria-label="Seleccionar tema">
-        <button type="button" class="theme-btn" data-theme-choice="light" aria-label="Tema claro" title="Claro">
+      <div class="lang-toggle lang-toggle-header" id="langToggle" role="group" aria-label="Seleccionar idioma" data-i18n-attrs='{"aria-label":"lang.groupLabel"}'>
+        <button type="button" class="lang-btn" data-lang-choice="es" aria-label="Español" title="Español">ES</button>
+        <button type="button" class="lang-btn" data-lang-choice="en" aria-label="English" title="English">EN</button>
+      </div>
+      <div class="theme-toggle" id="themeToggle" role="group" aria-label="Seleccionar tema" data-i18n-attrs='{"aria-label":"theme.groupLabel"}'>
+        <button type="button" class="theme-btn" data-theme-choice="light" aria-label="Tema claro" title="Claro" data-i18n-attrs='{"aria-label":"theme.lightAria","title":"theme.lightTitle"}'>
           <svg class="icon"><use href="#i-sun"></use></svg>
         </button>
-        <button type="button" class="theme-btn" data-theme-choice="dark" aria-label="Tema oscuro" title="Oscuro">
+        <button type="button" class="theme-btn" data-theme-choice="dark" aria-label="Tema oscuro" title="Oscuro" data-i18n-attrs='{"aria-label":"theme.darkAria","title":"theme.darkTitle"}'>
           <svg class="icon"><use href="#i-moon"></use></svg>
         </button>
-        <button type="button" class="theme-btn" data-theme-choice="system" aria-label="Tema del sistema" title="Sistema">
+        <button type="button" class="theme-btn" data-theme-choice="system" aria-label="Tema del sistema" title="Sistema" data-i18n-attrs='{"aria-label":"theme.systemAria","title":"theme.systemTitle"}'>
           <svg class="icon"><use href="#i-monitor"></use></svg>
         </button>
       </div>
-      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" data-i18n-attrs='{"aria-label":"nav.openMenu"}'>
         <svg class="icon icon-menu"><use href="#i-menu"></use></svg>
         <svg class="icon icon-close"><use href="#i-close"></use></svg>
       </button>
@@ -104,23 +120,23 @@
   <section id="inicio">
     <div class="wrap hero-grid">
       <div>
-        <p class="hero-greet">Hola, soy</p>
+        <p class="hero-greet" data-i18n="hero.greet">Hola, soy</p>
         <h1 class="hero-name">Miguel <span class="accent">De La Torre</span></h1>
-        <p class="hero-role"><span id="heroRoleText" aria-hidden="true"></span><span class="typing-cursor" aria-hidden="true"></span><span class="sr-only">Auxiliar Administrativo y Técnico en Sistemas Microinformáticos</span></p>
+        <p class="hero-role"><span id="heroRoleText" aria-hidden="true"></span><span class="typing-cursor" aria-hidden="true"></span><span class="sr-only" data-i18n="hero.role">Auxiliar Administrativo y Técnico en Sistemas Microinformáticos</span></p>
         <div class="hero-actions">
-          <a href="#contacto" class="btn btn-accent">Contáctame</a>
-          <a href="assets/cv-miguel.pdf" download="CV-Miguel-De-La-Torre.pdf" class="btn btn-solid"><svg class="icon"><use href="#i-download"></use></svg>Descargar CV</a>
+          <a href="#contacto" class="btn btn-accent" data-i18n="hero.contactBtn">Contáctame</a>
+          <a href="assets/cv-miguel.pdf" download="CV-Miguel-De-La-Torre.pdf" class="btn btn-solid"><svg class="icon"><use href="#i-download"></use></svg><span data-i18n="hero.downloadBtn">Descargar CV</span></a>
           <div class="hero-social">
-            <a href="https://migueldelatorre95.github.io" target="_blank" rel="noopener" aria-label="Sitio web"><svg class="icon"><use href="#i-globe"></use></svg></a>
-            <a href="mailto:miguelangeldelatorre14@gmail.com" aria-label="Enviar correo"><svg class="icon"><use href="#i-mail"></use></svg></a>
-            <a href="tel:+34700897" aria-label="Llamar"><svg class="icon"><use href="#i-phone"></use></svg></a>
+            <a href="https://migueldelatorre95.github.io" target="_blank" rel="noopener" aria-label="Sitio web" data-i18n-attrs='{"aria-label":"hero.ariaWebsite"}'><svg class="icon"><use href="#i-globe"></use></svg></a>
+            <a href="mailto:miguelangeldelatorre14@gmail.com" aria-label="Enviar correo" data-i18n-attrs='{"aria-label":"hero.ariaEmail"}'><svg class="icon"><use href="#i-mail"></use></svg></a>
+            <a href="tel:+34700897" aria-label="Llamar" data-i18n-attrs='{"aria-label":"hero.ariaCall"}'><svg class="icon"><use href="#i-phone"></use></svg></a>
             <a href="https://wa.me/34700897" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="icon"><use href="#i-chat"></use></svg></a>
           </div>
         </div>
       </div>
       <div class="hero-photo-wrap">
         <div class="hero-photo">
-          <img src="assets/foto-miguel.png" alt="Foto de Miguel De La Torre">
+          <img src="assets/foto-miguel.png" alt="Foto de Miguel De La Torre" data-i18n-attrs='{"alt":"hero.photoAlt"}'>
         </div>
       </div>
     </div>
@@ -130,19 +146,19 @@
   <section id="sobre-mi" class="section-soft">
     <div class="wrap about-grid">
       <div class="about-text">
-        <div class="heading-left"><span class="dash"></span><h2 class="section-title">Sobre mí</h2></div>
-        <p>Soy una persona con muchas ganas de trabajar y <span class="accent-text">en formación constante</span> en sistemas microinformáticos y en gestión administrativa. Gracias a esta formación práctica —siempre con casos reales de bases de datos, tesorería, nóminas, montaje de equipos y atención al cliente— he ido adquiriendo las habilidades necesarias para introducirme con garantías en el mercado laboral.</p>
+        <div class="heading-left"><span class="dash"></span><h2 class="section-title" data-i18n="about.title">Sobre mí</h2></div>
+        <p data-i18n-html="about.textHtml">Soy una persona con muchas ganas de trabajar y <span class="accent-text">en formación constante</span> en sistemas microinformáticos y en gestión administrativa. Gracias a esta formación práctica —siempre con casos reales de bases de datos, tesorería, nóminas, montaje de equipos y atención al cliente— he ido adquiriendo las habilidades necesarias para introducirme con garantías en el mercado laboral.</p>
         <div class="tag-row">
-          <span class="tag">Trabajo en equipo</span>
-          <span class="tag">Capacidad de análisis</span>
-          <span class="tag">Habilidades comunicativas</span>
-          <span class="tag">Atención al cliente</span>
+          <span class="tag" data-i18n="about.tag1">Trabajo en equipo</span>
+          <span class="tag" data-i18n="about.tag2">Capacidad de análisis</span>
+          <span class="tag" data-i18n="about.tag3">Habilidades comunicativas</span>
+          <span class="tag" data-i18n="about.tag4">Atención al cliente</span>
         </div>
       </div>
       <div class="about-stats">
-        <div class="about-stat"><div class="num">3.355 h</div><div class="lbl">de formación acumulada</div></div>
-        <div class="about-stat"><div class="num">6</div><div class="lbl">certificados de profesionalidad</div></div>
-        <div class="about-stat"><div class="num">Las Palmas GC</div><div class="lbl">ubicación</div></div>
+        <div class="about-stat"><div class="num">3.355 h</div><div class="lbl" data-i18n="about.stat1Label">de formación acumulada</div></div>
+        <div class="about-stat"><div class="num">6</div><div class="lbl" data-i18n="about.stat2Label">certificados de profesionalidad</div></div>
+        <div class="about-stat"><div class="num">Las Palmas GC</div><div class="lbl" data-i18n="about.stat3Label">ubicación</div></div>
       </div>
     </div>
   </section>
@@ -151,43 +167,43 @@
   <section id="habilidades">
     <div class="wrap">
       <div class="heading-center">
-        <h2 class="section-title">Mis Habilidades</h2>
-        <p>Conocimientos técnicos aplicados en casos prácticos reales durante mi formación.</p>
+        <h2 class="section-title" data-i18n="skills.title">Mis Habilidades</h2>
+        <p data-i18n="skills.subtitle">Conocimientos técnicos aplicados en casos prácticos reales durante mi formación.</p>
       </div>
       <div class="skills-grid">
 
         <div class="skill-card">
           <div class="skill-icon"><img src="assets/logo-windows.png" alt="Windows"></div>
           <div class="skill-name">Windows</div>
-          <div class="skill-level-label">NIVEL ALTO</div>
+          <div class="skill-level-label" data-i18n="skills.levelHigh">NIVEL ALTO</div>
           <div class="skill-bars"><i class="on"></i><i class="on"></i><i class="on"></i></div>
         </div>
 
         <div class="skill-card">
           <div class="skill-icon"><img src="assets/logo-linux.png" alt="Linux"></div>
           <div class="skill-name">Linux</div>
-          <div class="skill-level-label">NIVEL BAJO</div>
+          <div class="skill-level-label" data-i18n="skills.levelLow">NIVEL BAJO</div>
           <div class="skill-bars"><i class="on"></i><i></i><i></i></div>
         </div>
 
         <div class="skill-card">
           <div class="skill-icon"><img src="assets/logo-factusol.png" alt="Factusol"></div>
           <div class="skill-name">Factusol</div>
-          <div class="skill-level-label">NIVEL MEDIO</div>
+          <div class="skill-level-label" data-i18n="skills.levelMedium">NIVEL MEDIO</div>
           <div class="skill-bars"><i class="on"></i><i class="on"></i><i></i></div>
         </div>
 
         <div class="skill-card">
-          <div class="skill-icon"><img src="assets/logo-redes.png" alt="Redes locales"></div>
-          <div class="skill-name">Redes Locales</div>
-          <div class="skill-level-label">NIVEL MEDIO</div>
+          <div class="skill-icon"><img src="assets/logo-redes.png" alt="Redes locales" data-i18n-attrs='{"alt":"skills.redesLocales"}'></div>
+          <div class="skill-name" data-i18n="skills.redesLocales">Redes Locales</div>
+          <div class="skill-level-label" data-i18n="skills.levelMedium">NIVEL MEDIO</div>
           <div class="skill-bars"><i class="on"></i><i class="on"></i><i></i></div>
         </div>
 
         <div class="skill-card">
-          <div class="skill-icon"><img src="assets/logo-ofimatica.png" alt="Ofimática"></div>
-          <div class="skill-name">Ofimática</div>
-          <div class="skill-level-label">NIVEL MEDIO</div>
+          <div class="skill-icon"><img src="assets/logo-ofimatica.png" alt="Ofimática" data-i18n-attrs='{"alt":"skills.ofimatica"}'></div>
+          <div class="skill-name" data-i18n="skills.ofimatica">Ofimática</div>
+          <div class="skill-level-label" data-i18n="skills.levelMedium">NIVEL MEDIO</div>
           <div class="skill-bars"><i class="on"></i><i class="on"></i><i></i></div>
         </div>
 
@@ -199,45 +215,45 @@
   <section id="formacion" class="section-soft">
     <div class="wrap">
       <div class="heading-center">
-        <h2 class="section-title">Formación</h2>
-        <p>Certificados de profesionalidad reglados, con casos prácticos reales en cada uno.</p>
+        <h2 class="section-title" data-i18n="formacion.title">Formación</h2>
+        <p data-i18n="formacion.subtitle">Certificados de profesionalidad reglados, con casos prácticos reales en cada uno.</p>
       </div>
       <div class="formacion-grid">
 
         <div class="formacion-card">
           <div class="formacion-icon"><svg class="icon"><use href="#i-folder"></use></svg></div>
-          <h3>Actividades de Gestión Administrativa</h3>
-          <div class="formacion-meta"><span class="lvl">Nivel 2</span> · 700 h · Cenpol, Las Palmas GC · 2026</div>
+          <h3 data-i18n="formacion.card1Title">Actividades de Gestión Administrativa</h3>
+          <div class="formacion-meta"><span class="lvl" data-i18n="formacion.level2">Nivel 2</span> · 700 h · Cenpol, Las Palmas GC · 2026</div>
         </div>
 
         <div class="formacion-card">
           <div class="formacion-icon"><svg class="icon"><use href="#i-chip"></use></svg></div>
-          <h3>Sistemas Microinformáticos</h3>
-          <div class="formacion-meta"><span class="lvl">Nivel 2</span> · 540 h · Esc. Hostelería Europea · 2024</div>
+          <h3 data-i18n="formacion.card2Title">Sistemas Microinformáticos</h3>
+          <div class="formacion-meta"><span class="lvl" data-i18n="formacion.level2">Nivel 2</span> · 540 h · Esc. Hostelería Europea · 2024</div>
         </div>
 
         <div class="formacion-card">
           <div class="formacion-icon"><svg class="icon"><use href="#i-smartphone"></use></svg></div>
-          <h3>Reparación de Móviles</h3>
-          <div class="formacion-meta"><span class="lvl">Nivel 2</span> · 145 h · Esc. Hostelería Europea · 2024</div>
+          <h3 data-i18n="formacion.card3Title">Reparación de Móviles</h3>
+          <div class="formacion-meta"><span class="lvl" data-i18n="formacion.level2">Nivel 2</span> · 145 h · Esc. Hostelería Europea · 2024</div>
         </div>
 
         <div class="formacion-card">
           <div class="formacion-icon"><svg class="icon"><use href="#i-tool"></use></svg></div>
-          <h3>Montaje y Mantenimiento de Sistemas Microinformáticos</h3>
-          <div class="formacion-meta"><span class="lvl">Nivel 1</span> · 370 h · Aura, Las Palmas GC · 2023</div>
+          <h3 data-i18n="formacion.card4Title">Montaje y Mantenimiento de Sistemas Microinformáticos</h3>
+          <div class="formacion-meta"><span class="lvl" data-i18n="formacion.level1">Nivel 1</span> · 370 h · Aura, Las Palmas GC · 2023</div>
         </div>
 
         <div class="formacion-card">
           <div class="formacion-icon"><svg class="icon"><use href="#i-clipboard"></use></svg></div>
-          <h3>Servicios Administrativos y Generales</h3>
-          <div class="formacion-meta"><span class="lvl">Nivel 1</span> · 400 h · ICSE, Las Palmas GC · 2016</div>
+          <h3 data-i18n="formacion.card5Title">Servicios Administrativos y Generales</h3>
+          <div class="formacion-meta"><span class="lvl" data-i18n="formacion.level1">Nivel 1</span> · 400 h · ICSE, Las Palmas GC · 2016</div>
         </div>
 
         <div class="formacion-card">
           <div class="formacion-icon"><svg class="icon"><use href="#i-keyboard"></use></svg></div>
-          <h3>Grabación y Tratamiento de Datos y Documentos</h3>
-          <div class="formacion-meta"><span class="lvl">Nivel 1</span> · 1.200 h · Instituto Siete Palmas · 2013–2015</div>
+          <h3 data-i18n="formacion.card6Title">Grabación y Tratamiento de Datos y Documentos</h3>
+          <div class="formacion-meta"><span class="lvl" data-i18n="formacion.level1">Nivel 1</span> · 1.200 h · Instituto Siete Palmas · 2013–2015</div>
         </div>
 
       </div>
@@ -248,8 +264,8 @@
   <section id="experiencia">
     <div class="wrap">
       <div class="heading-center">
-        <h2 class="section-title">Experiencia</h2>
-        <p>Prácticas de empresa realizadas durante mi formación.</p>
+        <h2 class="section-title" data-i18n="experiencia.title">Experiencia</h2>
+        <p data-i18n="experiencia.subtitle">Prácticas de empresa realizadas durante mi formación.</p>
       </div>
 
       <div class="timeline">
@@ -257,33 +273,33 @@
         <div class="t-item">
           <div class="t-year">OCT 2024</div>
           <div class="t-dot"></div>
-          <div class="t-role">Instalación de Sistemas Microinformáticos</div>
+          <div class="t-role" data-i18n="experiencia.t1Role">Instalación de Sistemas Microinformáticos</div>
           <div class="t-org">Newport · Las Palmas GC · 40 h</div>
-          <div class="t-desc">Diagnóstico e instalación de ordenadores.</div>
+          <div class="t-desc" data-i18n="experiencia.t1Desc">Diagnóstico e instalación de ordenadores.</div>
         </div>
 
         <div class="t-item">
-          <div class="t-year">DIC 2023</div>
+          <div class="t-year" data-i18n="experiencia.t2Year">DIC 2023</div>
           <div class="t-dot"></div>
-          <div class="t-role">Reparación y Mantenimiento de Sistemas Microinformáticos</div>
+          <div class="t-role" data-i18n="experiencia.t2Role">Reparación y Mantenimiento de Sistemas Microinformáticos</div>
           <div class="t-org">Tu Móvil Canario · Telde · 80 h</div>
-          <div class="t-desc">Diagnóstico, reparación y mantenimiento de hardware y software en ordenadores y PC; configuración de sistemas operativos y recuperación de datos.</div>
+          <div class="t-desc" data-i18n="experiencia.t2Desc">Diagnóstico, reparación y mantenimiento de hardware y software en ordenadores y PC; configuración de sistemas operativos y recuperación de datos.</div>
         </div>
 
         <div class="t-item">
           <div class="t-year">OCT–NOV 2016</div>
           <div class="t-dot"></div>
-          <div class="t-role">Auxiliar Administrativo / Atención Telefónica</div>
+          <div class="t-role" data-i18n="experiencia.t3Role">Auxiliar Administrativo / Atención Telefónica</div>
           <div class="t-org">ICSE · Las Palmas GC · 129 h</div>
-          <div class="t-desc">Gestión y archivo de documentación administrativa y digitalización de expedientes.</div>
+          <div class="t-desc" data-i18n="experiencia.t3Desc">Gestión y archivo de documentación administrativa y digitalización de expedientes.</div>
         </div>
 
         <div class="t-item">
           <div class="t-year">MAY–JUN 2015</div>
           <div class="t-dot"></div>
-          <div class="t-role">Auxiliar Administrativo / Atención Telefónica</div>
+          <div class="t-role" data-i18n="experiencia.t4Role">Auxiliar Administrativo / Atención Telefónica</div>
           <div class="t-org">Unión Eléctrica de Canarias (SAU) Endesa · Las Palmas GC · 100 h</div>
-          <div class="t-desc">Atención al cliente telefónica, filtro de llamadas y resolución de incidencias.</div>
+          <div class="t-desc" data-i18n="experiencia.t4Desc">Atención al cliente telefónica, filtro de llamadas y resolución de incidencias.</div>
         </div>
 
       </div>
@@ -295,13 +311,13 @@
     <div class="wrap">
       <div class="cifras-band">
         <div class="cifras-row">
-          <div class="cifra"><div class="num" data-count="3355" data-suffix="h">3.355h</div><div class="lbl">de formación acumulada</div></div>
-          <div class="cifra"><div class="num" data-count="6" data-suffix="">6</div><div class="lbl">certificados de profesionalidad</div></div>
-          <div class="cifra"><div class="num">Inmediata</div><div class="lbl">disponibilidad para trabajar</div></div>
+          <div class="cifra"><div class="num" data-count="3355" data-suffix="h">3.355h</div><div class="lbl" data-i18n="about.stat1Label">de formación acumulada</div></div>
+          <div class="cifra"><div class="num" data-count="6" data-suffix="">6</div><div class="lbl" data-i18n="about.stat2Label">certificados de profesionalidad</div></div>
+          <div class="cifra"><div class="num" data-i18n="cifras.stat3Value">Inmediata</div><div class="lbl" data-i18n="cifras.stat3Label">disponibilidad para trabajar</div></div>
         </div>
         <div class="cifras-tags">
-          <span>Inscrito en Garantía Juvenil</span>
-          <span>Programa Certifícate</span>
+          <span data-i18n="cifras.tag1">Inscrito en Garantía Juvenil</span>
+          <span data-i18n="cifras.tag2">Programa Certifícate</span>
         </div>
       </div>
     </div>
@@ -311,39 +327,39 @@
   <section id="contacto">
     <div class="wrap">
       <div class="heading-center" style="margin-bottom:0;">
-        <h2 class="section-title">Contacto</h2>
-        <p class="contact-lead">¿Hablamos? Cuéntame en qué puedo ayudarte.</p>
+        <h2 class="section-title" data-i18n="contacto.title">Contacto</h2>
+        <p class="contact-lead" data-i18n="contacto.lead">¿Hablamos? Cuéntame en qué puedo ayudarte.</p>
       </div>
 
       <div class="contact-grid">
         <a class="contact-item" href="https://migueldelatorre95.github.io" target="_blank" rel="noopener"><svg class="icon"><use href="#i-globe"></use></svg>migueldelatorre95.github.io</a>
         <a class="contact-item" href="mailto:miguelangeldelatorre14@gmail.com"><svg class="icon"><use href="#i-mail"></use></svg>miguelangeldelatorre14@gmail.com</a>
         <a class="contact-item" href="tel:+34700897"><svg class="icon"><use href="#i-phone"></use></svg>+34 722 70 08 97</a>
-        <div class="contact-item"><svg class="icon"><use href="#i-pin"></use></svg>Las Palmas de Gran Canaria, España</div>
+        <div class="contact-item"><svg class="icon"><use href="#i-pin"></use></svg><span data-i18n="contacto.address">Las Palmas de Gran Canaria, España</span></div>
       </div>
 
       <div class="social-row">
-        <a href="https://migueldelatorre95.github.io" target="_blank" rel="noopener" aria-label="Sitio web"><svg class="icon"><use href="#i-globe"></use></svg></a>
-        <a href="mailto:miguelangeldelatorre14@gmail.com" aria-label="Correo"><svg class="icon"><use href="#i-mail"></use></svg></a>
-        <a href="tel:+34722700897" aria-label="Teléfono"><svg class="icon"><use href="#i-phone"></use></svg></a>
+        <a href="https://migueldelatorre95.github.io" target="_blank" rel="noopener" aria-label="Sitio web" data-i18n-attrs='{"aria-label":"hero.ariaWebsite"}'><svg class="icon"><use href="#i-globe"></use></svg></a>
+        <a href="mailto:miguelangeldelatorre14@gmail.com" aria-label="Correo" data-i18n-attrs='{"aria-label":"contacto.ariaEmail"}'><svg class="icon"><use href="#i-mail"></use></svg></a>
+        <a href="tel:+34722700897" aria-label="Teléfono" data-i18n-attrs='{"aria-label":"contacto.ariaPhone"}'><svg class="icon"><use href="#i-phone"></use></svg></a>
         <a href="https://wa.me/34722700897" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="icon"><use href="#i-chat"></use></svg></a>
       </div>
 
-      <p class="thanks-line">Gracias por leer hasta el final ✨</p>
+      <p class="thanks-line" data-i18n="contacto.thanks">Gracias por leer hasta el final ✨</p>
     </div>
   </section>
 
 </main>
 
-<footer>Miguel De La Torre — Auxiliar Administrativo · Las Palmas de Gran Canaria</footer>
+<footer data-i18n="footer.text">Miguel De La Torre — Auxiliar Administrativo · Las Palmas de Gran Canaria</footer>
 
-<button id="backToTop" aria-label="Volver arriba" title="Volver arriba">
+<button id="backToTop" aria-label="Volver arriba" title="Volver arriba" data-i18n-attrs='{"aria-label":"backToTop.label","title":"backToTop.label"}'>
   <svg class="icon"><use href="#i-arrow-up"></use></svg>
 </button>
 
 <div id="stickyCta" class="sticky-cta">
-  <a href="assets/cv-miguel.pdf" download="CV-Miguel-De-La-Torre.pdf" class="btn btn-sm btn-solid"><svg class="icon"><use href="#i-download"></use></svg>Descargar CV</a>
-  <a href="#contacto" class="btn btn-sm btn-accent">Contáctame</a>
+  <a href="assets/cv-miguel.pdf" download="CV-Miguel-De-La-Torre.pdf" class="btn btn-sm btn-solid"><svg class="icon"><use href="#i-download"></use></svg><span data-i18n="hero.downloadBtn">Descargar CV</span></a>
+  <a href="#contacto" class="btn btn-sm btn-accent" data-i18n="hero.contactBtn">Contáctame</a>
 </div>
 
 <script src="script.js"></script>
