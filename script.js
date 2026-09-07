@@ -123,3 +123,49 @@
     }, {threshold:0.15});
     revealTargets.forEach(el => revealIO.observe(el));
   }
+
+  // selector de tema: claro / oscuro / sistema
+  (function initSelectorTema(){
+    const CLAVE_TEMA = 'theme-preference';
+    const raiz = document.documentElement;
+    const botonesTema = document.querySelectorAll('.theme-btn');
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    const coloresPorTema = { dark: '#21242b', light: '#faf8f3' };
+    const prefiereOscuroMQ = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function obtenerPreferencia(){
+      try { return localStorage.getItem(CLAVE_TEMA) || 'system'; }
+      catch(e){ return 'system'; }
+    }
+
+    function temaEfectivo(preferencia){
+      return preferencia === 'system' ? (prefiereOscuroMQ.matches ? 'dark' : 'light') : preferencia;
+    }
+
+    function aplicarTema(preferencia){
+      const efectivo = temaEfectivo(preferencia);
+      raiz.setAttribute('data-theme', efectivo);
+      if (metaThemeColor) metaThemeColor.setAttribute('content', coloresPorTema[efectivo]);
+      botonesTema.forEach(boton => {
+        const activo = boton.dataset.themeChoice === preferencia;
+        boton.classList.toggle('active', activo);
+        boton.setAttribute('aria-pressed', activo ? 'true' : 'false');
+      });
+    }
+
+    function guardarPreferencia(preferencia){
+      try { localStorage.setItem(CLAVE_TEMA, preferencia); } catch(e){}
+      aplicarTema(preferencia);
+    }
+
+    botonesTema.forEach(boton => {
+      boton.addEventListener('click', () => guardarPreferencia(boton.dataset.themeChoice));
+    });
+
+    // si está en modo "sistema", sigue en vivo los cambios de preferencia del SO
+    prefiereOscuroMQ.addEventListener('change', () => {
+      if (obtenerPreferencia() === 'system') aplicarTema('system');
+    });
+
+    aplicarTema(obtenerPreferencia());
+  })();

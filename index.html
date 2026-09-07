@@ -3,6 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  // aplica el tema guardado (o el del sistema) antes de pintar, para evitar el parpadeo
+  (function(){
+    try{
+      var preferencia = localStorage.getItem('theme-preference') || 'system';
+      var prefiereOscuro = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var temaActivo = preferencia === 'system' ? (prefiereOscuro ? 'dark' : 'light') : preferencia;
+      document.documentElement.setAttribute('data-theme', temaActivo);
+    }catch(e){}
+  })();
+</script>
 <title>Miguel De La Torre — Auxiliar Administrativo · Sistemas Microinformáticos</title>
 <meta name="description" content="Miguel De La Torre — Auxiliar Administrativo y Técnico en Sistemas Microinformáticos en Las Palmas de Gran Canaria. Formación práctica en gestión administrativa, redes y mantenimiento de equipos, con disponibilidad inmediata.">
 <meta name="theme-color" content="#21242b">
@@ -45,6 +56,9 @@
 <symbol id="i-arrow-up" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5,12 12,5 19,12"/></symbol>
 <symbol id="i-download" viewBox="0 0 24 24"><line x1="12" y1="4" x2="12" y2="15"/><polyline points="7,10 12,15 17,10"/><line x1="5" y1="19" x2="19" y2="19"/></symbol>
 <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3c2.5 2.5 4 5.7 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.7-4-9s1.5-6.5 4-9z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><line x1="12" y1="1.5" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22.5" y2="12"/><line x1="4.6" y1="4.6" x2="6.3" y2="6.3"/><line x1="17.7" y1="17.7" x2="19.4" y2="19.4"/><line x1="4.6" y1="19.4" x2="6.3" y2="17.7"/><line x1="17.7" y1="6.3" x2="19.4" y2="4.6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></symbol>
+<symbol id="i-monitor" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="13" rx="1.5"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></symbol>
 </defs>
 </svg>
 
@@ -54,20 +68,33 @@
       <span class="brand-mark"><span>MT</span></span>
       <span class="brand-name">Miguel <em>De La Torre</em></span>
     </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
-      <svg class="icon icon-menu"><use href="#i-menu"></use></svg>
-      <svg class="icon icon-close"><use href="#i-close"></use></svg>
-    </button>
-    <nav class="main-nav" id="mainNav">
-      <ul>
-        <li><a href="#inicio" class="nav-link" data-target="inicio">Inicio</a></li>
-        <li><a href="#sobre-mi" class="nav-link" data-target="sobre-mi">Sobre mí</a></li>
-        <li><a href="#habilidades" class="nav-link" data-target="habilidades">Habilidades</a></li>
-        <li><a href="#formacion" class="nav-link" data-target="formacion">Formación</a></li>
-        <li><a href="#experiencia" class="nav-link" data-target="experiencia">Experiencia</a></li>
-        <li><a href="#contacto" class="nav-link" data-target="contacto">Contacto</a></li>
-      </ul>
-    </nav>
+    <div class="nav-right">
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="#inicio" class="nav-link" data-target="inicio">Inicio</a></li>
+          <li><a href="#sobre-mi" class="nav-link" data-target="sobre-mi">Sobre mí</a></li>
+          <li><a href="#habilidades" class="nav-link" data-target="habilidades">Habilidades</a></li>
+          <li><a href="#formacion" class="nav-link" data-target="formacion">Formación</a></li>
+          <li><a href="#experiencia" class="nav-link" data-target="experiencia">Experiencia</a></li>
+          <li><a href="#contacto" class="nav-link" data-target="contacto">Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="theme-toggle" id="themeToggle" role="group" aria-label="Seleccionar tema">
+        <button type="button" class="theme-btn" data-theme-choice="light" aria-label="Tema claro" title="Claro">
+          <svg class="icon"><use href="#i-sun"></use></svg>
+        </button>
+        <button type="button" class="theme-btn" data-theme-choice="dark" aria-label="Tema oscuro" title="Oscuro">
+          <svg class="icon"><use href="#i-moon"></use></svg>
+        </button>
+        <button type="button" class="theme-btn" data-theme-choice="system" aria-label="Tema del sistema" title="Sistema">
+          <svg class="icon"><use href="#i-monitor"></use></svg>
+        </button>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+        <svg class="icon icon-menu"><use href="#i-menu"></use></svg>
+        <svg class="icon icon-close"><use href="#i-close"></use></svg>
+      </button>
+    </div>
   </div>
 </header>
 
