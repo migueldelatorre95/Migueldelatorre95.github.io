@@ -460,6 +460,10 @@
     border-top:1px solid var(--panel-line);
   }
 
+  .footer-credit{
+    margin-top:7px; font-size:10.5px; color:var(--ink-faint); opacity:.7;
+  }
+
   /* ---------------- ajustes moviles extra (vertical y horizontal) ---------------- */
   @media (max-width:480px){
     .wrap{ padding:0 18px; }
