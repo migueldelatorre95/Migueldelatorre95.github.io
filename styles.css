@@ -288,10 +288,11 @@
 
   /* ---------------- habilidades ---------------- */
   .skills-grid{
-    display:flex; flex-wrap:wrap; justify-content:center; gap:20px;
+    display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:20px;
+    max-width:980px; margin:0 auto;
   }
   .skill-card{
-    width:190px;
+    width:auto;
     background:var(--panel); border:1px solid var(--panel-line); border-radius:12px;
     padding:30px 20px 24px;
     text-align:center;
@@ -320,6 +321,11 @@
     letter-spacing:0.03em; transition:color .3s ease;
   }
   .skill-card:hover .skill-level-label{ color:rgba(36,26,8,0.75); }
+  .skill-desc{
+    margin-top:9px; min-height:34px; font-size:11px; line-height:1.45; color:var(--ink-faint);
+    transition:color .3s ease;
+  }
+  .skill-card:hover .skill-desc{ color:rgba(36,26,8,0.72); }
   .skill-bars{ display:flex; gap:4px; justify-content:center; margin-top:9px; }
   .skill-bars i{ width:20px; height:5px; border-radius:3px; background:var(--panel-line); transition:background .3s ease; }
   .skill-bars i.on{ background:var(--accent); }
@@ -346,7 +352,10 @@
   .formacion-meta{ font-size:12.5px; color:var(--ink-faint); }
   .formacion-meta .lvl{ color:var(--accent); font-weight:600; }
 
-  @media (max-width:940px){ .formacion-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:940px){
+    .formacion-grid{ grid-template-columns:repeat(2,1fr); }
+    .skills-grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); max-width:680px; }
+  }
   @media (max-width:620px){ .formacion-grid{ grid-template-columns:1fr; } }
 
   /* ---------------- experiencia ---------------- */
@@ -475,7 +484,8 @@
     .theme-btn{ width:28px; height:28px; }
     .theme-btn svg{ width:14px; height:14px; }
     .hero-actions{ flex-direction:column; align-items:flex-start; gap:18px; }
-    .skill-card{ width:100%; max-width:260px; }
+    .skills-grid{ grid-template-columns:1fr; max-width:320px; }
+    .skill-card{ width:100%; }
     .contact-grid{ flex-direction:column; align-items:stretch; }
     .contact-item{ justify-content:center; }
     .cifra .num{ font-size:clamp(26px,8vw,36px); }

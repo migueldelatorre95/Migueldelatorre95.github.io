@@ -222,7 +222,14 @@
         skills: {
           title:'Mis Habilidades',
           subtitle:'Conocimientos técnicos aplicados en casos prácticos reales durante mi formación.',
-          levelHigh:'NIVEL ALTO', levelLow:'NIVEL BAJO', levelMedium:'NIVEL MEDIO',
+          levelHigh:'NIVEL ALTO', levelBasic:'NIVEL BÁSICO', levelMedium:'NIVEL MEDIO',
+          windowsDesc:'Instalación, configuración y uso habitual del sistema.',
+          linuxDesc:'Manejo básico del sistema y comandos esenciales.',
+          factusolDesc:'Gestión administrativa, facturación y tareas habituales.',
+          redesDesc:'Configuración básica, conexiones y resolución de incidencias.',
+          ofimaticaDesc:'Manejo de Word, Excel y herramientas de oficina.',
+          mantenimiento:'Mantenimiento y Sistemas',
+          mantenimientoDesc:'Mantenimiento de sistemas, clonación de equipos con Clonezilla y virtualización con VirtualBox.',
           redesLocales:'Redes Locales', ofimatica:'Ofimática'
         },
         formacion: {
@@ -290,7 +297,14 @@
         skills: {
           title:'My Skills',
           subtitle:'Technical knowledge applied to real practical cases during my training.',
-          levelHigh:'HIGH LEVEL', levelLow:'LOW LEVEL', levelMedium:'MEDIUM LEVEL',
+          levelHigh:'HIGH LEVEL', levelBasic:'BASIC LEVEL', levelMedium:'MEDIUM LEVEL',
+          windowsDesc:'System installation, configuration and everyday use.',
+          linuxDesc:'Basic system use and essential commands.',
+          factusolDesc:'Administrative management, invoicing and everyday tasks.',
+          redesDesc:'Basic setup, connections and troubleshooting.',
+          ofimaticaDesc:'Use of Word, Excel and office productivity tools.',
+          mantenimiento:'Systems Maintenance',
+          mantenimientoDesc:'System maintenance, equipment cloning with Clonezilla and virtualization with VirtualBox.',
           redesLocales:'Local Networks', ofimatica:'Office Suite'
         },
         formacion: {
