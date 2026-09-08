@@ -366,6 +366,26 @@
     position:absolute; left:95.5px; top:6px; width:9px; height:9px; border-radius:50%;
     background:var(--accent); box-shadow:0 0 0 4px rgba(var(--accent-rgb),0.18);
   }
+
+  /* El punto de la experiencia más reciente parpadea suavemente */
+  .t-item:first-child .t-dot{
+    animation: timeline-dot-blink 1.4s ease-in-out infinite;
+  }
+
+  @keyframes timeline-dot-blink{
+    0%, 100%{
+      opacity:1;
+      box-shadow:0 0 0 4px rgba(var(--accent-rgb),0.18);
+    }
+    50%{
+      opacity:0.25;
+      box-shadow:0 0 0 7px rgba(var(--accent-rgb),0.05);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .t-item:first-child .t-dot{ animation:none; }
+  }
   .t-role{ font-family:var(--f-display); font-weight:700; font-size:19px; }
   .t-org{ font-size:13.5px; color:var(--accent); margin-top:4px; font-weight:500; }
   .t-desc{ margin-top:10px; color:var(--ink-dim); font-size:15px; max-width:52ch; }
