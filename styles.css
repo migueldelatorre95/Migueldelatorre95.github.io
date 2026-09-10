@@ -460,8 +460,8 @@
   .social-row{ margin-top:34px; display:flex; justify-content:center; gap:12px; }
 
   .thanks-line{
-    margin-top:56px; font-family:var(--f-display); font-style:italic; font-weight:600;
-    color:var(--ink-dim); font-size:16px;
+    margin-top:56px; font-family:var(--f-body); font-style:normal; font-weight:500;
+    color:var(--ink-dim); font-size:15px; letter-spacing:.01em;
   }
 
   footer{
